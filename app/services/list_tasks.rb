@@ -1,7 +1,7 @@
 class ListTasks < ListCollection
 
   attr_defaultable :task_repository, -> { @project.tasks }
-  attr_defaultable :result_serializer, -> { V1::TaskSerializer }
+  attr_defaultable :result_serializer, -> { TaskSerializer }
 
   def initialize(project, page_options)
     super page_options

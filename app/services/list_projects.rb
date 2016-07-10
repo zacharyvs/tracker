@@ -1,7 +1,7 @@
 class ListProjects < ListCollection
 
   attr_defaultable :project_respository, -> { Project }
-  attr_defaultable :result_serializer, -> { V1::ProjectSerializer }
+  attr_defaultable :result_serializer, -> { ProjectSerializer }
 
   def collection_type
     :projects
