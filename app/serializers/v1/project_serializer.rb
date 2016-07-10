@@ -3,5 +3,6 @@ module V1
 
     attributes :id, :name, :description, :state
 
+    has_many :tasks
   end
 end

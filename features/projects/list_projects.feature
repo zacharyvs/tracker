@@ -71,7 +71,8 @@ Feature: Listing projects
             id: '54f8419c-3f22-4cba-b194-5f8b4727ccfd',
             name: 'Sample Project',
             description: 'A small sample project',
-            state: 'active'
+            state: 'active',
+            tasks: []
           }
         ],
         count: 1,
