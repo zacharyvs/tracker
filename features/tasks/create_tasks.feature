@@ -1,4 +1,4 @@
-@domain
+@domain @api
 Feature: Creating tasks
 
   Rules:

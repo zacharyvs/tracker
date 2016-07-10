@@ -1,4 +1,4 @@
-@domain
+@domain @api
 Feature: Listing tasks
 
   Scenario: Verifying the format shape
