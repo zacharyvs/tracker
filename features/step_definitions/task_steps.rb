@@ -18,5 +18,5 @@ Then(/^the project has (\d+) tasks?$/) do |count|
 end
 
 When(/^I request the tasks for that project$/) do
-  d.request_tasks @project, Hash.new
+  d.request_list "tasks", project_id: @project.id
 end

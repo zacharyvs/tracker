@@ -10,11 +10,6 @@ class DomainWorldDriver < WorldDriver
     @errors.push *e
   end
 
-  def request_tasks project, params
-    @results, e = ListTasks.new(project, params).call
-    @errors.push *e
-  end
-
   def create_project params
     create_instance Project, params
   end

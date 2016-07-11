@@ -12,7 +12,7 @@ module V1
       param :query, :page_size, :integer, :optional, 'number of results per page, default 25'
     end
     def index
-      tasks, errors = ListTasks.new(@project, index_params).call
+      tasks, errors = ListTasks.new(index_params).call
       if errors.any?
         render json: { errors: errors }, status: 400
       else
@@ -57,7 +57,7 @@ module V1
     end
 
     def index_params
-      params.permit(:page, :page_size).to_h.symbolize_keys
+      params.permit(:project_id, :page, :page_size).to_h.symbolize_keys
     end
 
     def task_params

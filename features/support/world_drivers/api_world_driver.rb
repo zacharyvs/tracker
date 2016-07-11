@@ -11,40 +11,42 @@ class ApiWorldDriver < WorldDriver
   end
 
   def request_list collection_type, params
-    result = get "/v1/#{collection_type}?#{params.to_query}"
-    parse_body result
-  end
-
-  def request_tasks project, params
-    result = get "/v1/projects/#{project.id}/tasks?#{params.to_query}"
-    parse_body result
+    base = case collection_type
+          when "projects"
+            "v1/projects"
+          else
+            "v1/projects/#{params[:project_id]}/tasks"
+          end
+    result = get(base + "?#{params.except(:project_id).to_query}")
+    parse_list_body result
   end
 
   def create_project attributes
     result = post '/v1/projects', { project: attributes }
-    body = JSON.parse(result.body).deep_symbolize_keys
-    if body[:errors].present?
-      @errors.push *body[:errors]
-    end
+    parse_create_body result
   end
 
   def create_task attributes
     result = post "/v1/projects/#{attributes[:project_id]}/tasks", { task: attributes }
-    body = JSON.parse(result.body).deep_symbolize_keys
-    if body[:errors].present?
-      @errors.push *body[:errors]
-    end
+    parse_create_body result
   end
 
   private
 
-  def parse_body result
+  def parse_list_body result
     body = JSON.parse(result.body).deep_symbolize_keys
     if body[:errors].present?
       @errors.push *body[:errors]
       @results = nil
     else
       @results = body
+    end
+  end
+
+  def parse_create_body result
+    body = JSON.parse(result.body).deep_symbolize_keys
+    if body[:errors].present?
+      @errors.push *body[:errors]
     end
   end
 end
